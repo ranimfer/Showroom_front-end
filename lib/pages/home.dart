@@ -8,7 +8,6 @@ import '../widgets/footer.dart';
 import '../widgets/category_avatar.dart';
 import '../widgets/product_card.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -114,59 +113,57 @@ class _AccueilContentState extends State<AccueilContent> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Sidebar Catégories
-      // Nouvelle Sidebar avec logo et description
-      Container(
-      width: 200,
-      color: Colors.grey[200],
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Logo circulaire
-          CircleAvatar(
-            radius: 45,
-            backgroundImage: const AssetImage('assets/logoo.png'),
-            backgroundColor: Colors.grey[200],
-          ),
-          const SizedBox(height: 20),
+        // Sidebar avec logo et description
+        Container(
+          width: 200,
+          color: Colors.grey[200],
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Logo circulaire
+              CircleAvatar(
+                radius: 45,
+                backgroundImage: const AssetImage('assets/logoo.png'),
+                backgroundColor: Colors.grey[200],
+              ),
+              const SizedBox(height: 20),
 
-          // Nom de la société
-          const Text(
-            'MyShowroom',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-          const SizedBox(height: 12),
-
-          // Boîte avec description
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
+              // Nom de la société
+              const Text(
+                'MyShowroom',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
                 ),
-              ],
-            ),
-            child: const Text(
-              'Solutions IoT innovantes pour les entreprises modernes.',
-              style: TextStyle(fontSize: 13, color: Colors.black87),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
-    ),
+              ),
+              const SizedBox(height: 12),
 
+              // Boîte avec description
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: const Text(
+                  'Solutions IoT innovantes pour les entreprises modernes.',
+                  style: TextStyle(fontSize: 13, color: Colors.black87),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
 
         // Zone principale
         Expanded(
@@ -195,6 +192,25 @@ class _AccueilContentState extends State<AccueilContent> {
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                     filled: true,
                     fillColor: Colors.white,
+                  ),
+                ),
+
+                const SizedBox(height: 32),
+
+                // Catégories en dessous du champ de recherche
+                const SizedBox(height: 20),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: const [
+                      CategoryAvatar(label: "Lampe", icon: Icons.lightbulb_outline),
+                      SizedBox(width: 20),
+                      CategoryAvatar(label: "Carte Graphique", icon: Icons.memory),
+                      SizedBox(width: 20),
+                      CategoryAvatar(label: "Écran", icon: Icons.monitor),
+                      SizedBox(width: 20),
+                      CategoryAvatar(label: "Souris", icon: Icons.mouse),
+                    ],
                   ),
                 ),
 
