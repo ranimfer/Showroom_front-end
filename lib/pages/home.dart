@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'AboutPage.dart';
 import 'AboutPage.dart';
 import 'CartPage.dart';
 import 'ContactPage.dart';
@@ -17,16 +16,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-
-  final List<String> _pageTitles = ['Accueil', 'Panier', 'À propos', 'Contact', 'Connectez-vous'];
-
-  final List<Widget> _pages = [
-    const AccueilContent(),
-    const CartPage(),
-    const AboutPage(),
-    const ContactPage(),
-    const LoginPage(),
-  ];
+  final TextEditingController _searchController = TextEditingController();
+  String _searchText = '';
 
   void _onItemTapped(int index) {
     setState(() {
@@ -37,34 +28,128 @@ class _HomePageState extends State<HomePage> {
   Widget _buildNavbar() {
     return Container(
       color: Colors.blueGrey[900],
-      height: 60,
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      height: 80,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          const Text(
-            '🛍️ MyShowroom',
-            style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+          // 1. Logo → Accueil
+          IconButton(
+            onPressed: () => _onItemTapped(0),
+            icon: Image.asset(
+              'assets/logoo.png',
+              height: 50,
+            ),
+            tooltip: 'Accueil',
           ),
-          const Spacer(),
-          for (int i = 0; i < _pageTitles.length; i++)
-            TextButton(
-              onPressed: () => _onItemTapped(i),
-              child: Text(
-                _pageTitles[i],
-                style: TextStyle(
-                  color: _selectedIndex == i ? Colors.amber : Colors.white,
-                  fontSize: 16,
-                  fontWeight: _selectedIndex == i ? FontWeight.bold : FontWeight.normal,
+
+          const SizedBox(width: 20),
+
+          // 2. Search bar
+          Expanded(
+            child: Container(
+              height: 40,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: TextField(
+                controller: _searchController,
+                onChanged: (value) {
+                  setState(() {
+                    _searchText = value;
+                  });
+                },
+                decoration: const InputDecoration(
+                  hintText: "Rechercher un produit...",
+                  border: InputBorder.none,
+                  icon: Icon(Icons.search),
                 ),
               ),
             ),
+          ),
+
+          const SizedBox(width: 20),
+
+          // 3. Accueil
+          TextButton(
+            onPressed: () => _onItemTapped(0),
+            child: Text(
+              "Accueil",
+              style: TextStyle(
+                color: _selectedIndex == 0 ? Colors.amber : Colors.white,
+                fontSize: 16,
+                fontWeight: _selectedIndex == 0 ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 12),
+
+          // 4. SOTUNEC ++ → AboutPage
+          TextButton(
+            onPressed: () => _onItemTapped(2), // AboutPage
+            child: Text(
+              "SOTUNEC ++",
+              style: TextStyle(
+                color: _selectedIndex == 2 ? Colors.amber : Colors.white,
+                fontSize: 16,
+                fontWeight: _selectedIndex == 2 ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 12),
+
+          // 5. Produits (à personnaliser plus tard)
+          TextButton(
+            onPressed: () => _onItemTapped(0), // Pour l’instant, même page Accueil
+            child: Text(
+              "Produits",
+              style: TextStyle(
+                color: _selectedIndex == 0 ? Colors.amber : Colors.white,
+                fontSize: 16,
+                fontWeight: _selectedIndex == 0 ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 12),
+
+          // 6. Panier (icône)
+          IconButton(
+            onPressed: () => _onItemTapped(1), // CartPage
+            icon: Icon(Icons.shopping_cart,
+                color: _selectedIndex == 1 ? Colors.amber : Colors.white),
+            tooltip: 'Panier',
+          ),
+
+          // 7. Connecter (icône)
+          IconButton(
+            onPressed: () => _onItemTapped(4), // LoginPage
+            icon: Icon(Icons.person,
+                color: _selectedIndex == 4 ? Colors.amber : Colors.white),
+            tooltip: 'Se connecter',
+          ),
         ],
       ),
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _pages = [
+      AccueilContent(
+        searchText: _searchText,
+        onPageSelected: _onItemTapped,
+      ),
+      const CartPage(),
+      const AboutPage(),
+      const ContactPage(),
+      const LoginPage(),
+    ];
+
     return Scaffold(
       body: Column(
         children: [
@@ -82,30 +167,29 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class AccueilContent extends StatefulWidget {
-  const AccueilContent({super.key});
+class AccueilContent extends StatelessWidget {
+  final String searchText;
+  final Function(int) onPageSelected;
 
-  @override
-  State<AccueilContent> createState() => _AccueilContentState();
-}
+  const AccueilContent({
+    super.key,
+    required this.searchText,
+    required this.onPageSelected,
+  });
 
-class _AccueilContentState extends State<AccueilContent> {
-  final TextEditingController _searchController = TextEditingController();
-
-  final List<Map<String, dynamic>> _allProducts = [
+  List<Map<String, dynamic>> get _allProducts => [
     {'icon': Icons.lightbulb, 'name': 'Lampe LED', 'price': '39 DT'},
     {'icon': Icons.memory, 'name': 'GPU RTX 3060', 'price': '1900 DT'},
     {'icon': Icons.monitor, 'name': 'Écran 27"', 'price': '700 DT'},
     {'icon': Icons.mouse, 'name': 'Souris Gamer', 'price': '120 DT'},
   ];
 
-  String _searchText = '';
-
   List<Map<String, dynamic>> get _filteredProducts {
-    if (_searchText.isEmpty) return _allProducts;
+    if (searchText.isEmpty) return _allProducts;
     return _allProducts
-        .where((product) =>
-        product['name'].toLowerCase().contains(_searchText.toLowerCase()))
+        .where((product) => product['name']
+        .toLowerCase()
+        .contains(searchText.toLowerCase()))
         .toList();
   }
 
@@ -113,7 +197,6 @@ class _AccueilContentState extends State<AccueilContent> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Sidebar avec logo et description
         Container(
           width: 200,
           color: Colors.grey[200],
@@ -121,15 +204,12 @@ class _AccueilContentState extends State<AccueilContent> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Logo circulaire
               CircleAvatar(
                 radius: 45,
                 backgroundImage: const AssetImage('assets/logoo.png'),
                 backgroundColor: Colors.grey[200],
               ),
               const SizedBox(height: 20),
-
-              // Nom de la société
               const Text(
                 'MyShowroom',
                 textAlign: TextAlign.center,
@@ -140,8 +220,6 @@ class _AccueilContentState extends State<AccueilContent> {
                 ),
               ),
               const SizedBox(height: 12),
-
-              // Boîte avec description
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
@@ -161,11 +239,19 @@ class _AccueilContentState extends State<AccueilContent> {
                   textAlign: TextAlign.center,
                 ),
               ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () => onPageSelected(2), // ✅ AboutPage
+                child: const Text("À propos"),
+              ),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: () => onPageSelected(3), // ✅ ContactPage
+                child: const Text("Contact"),
+              ),
             ],
           ),
         ),
-
-        // Zone principale
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24.0),
@@ -176,28 +262,6 @@ class _AccueilContentState extends State<AccueilContent> {
                   'Accueil',
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 16),
-
-                // Zone de recherche
-                TextField(
-                  controller: _searchController,
-                  onChanged: (value) {
-                    setState(() {
-                      _searchText = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: "Rechercher un produit...",
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                ),
-
-                const SizedBox(height: 32),
-
-                // Catégories en dessous du champ de recherche
                 const SizedBox(height: 20),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -213,15 +277,12 @@ class _AccueilContentState extends State<AccueilContent> {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 32),
-
                 const Text(
                   'Produits',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
-
                 _filteredProducts.isEmpty
                     ? const Text('Aucun produit trouvé.')
                     : Wrap(
