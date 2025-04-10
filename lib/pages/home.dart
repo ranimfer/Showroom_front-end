@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'AboutPage.dart';
+import 'package:showroomofficiel/pages/products/product_list.dart';
+import 'AboutPage/AboutPage.dart';
 import 'CartPage.dart';
 import 'ContactPage.dart';
 import 'LoginPage.dart';
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () => _onItemTapped(0),
             icon: Image.asset(
               'assets/logoo.png',
-              height: 50,
+              height: 70,
             ),
             tooltip: 'Accueil',
           ),
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(width: 20),
 
           // 2. Search bar
-          Expanded(
+          /*Expanded(
             child: Container(
               height: 40,
               padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -67,9 +68,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-          ),
+          ),*/
 
-          const SizedBox(width: 20),
+          const SizedBox(width: 830),
 
           // 3. Accueil
           TextButton(
@@ -103,13 +104,21 @@ class _HomePageState extends State<HomePage> {
 
           // 5. Produits (à personnaliser plus tard)
           TextButton(
-            onPressed: () => _onItemTapped(0), // Pour l’instant, même page Accueil
+            onPressed: () => _onItemTapped(5), // Pour l’instant, même page Accueil
+            /*onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductListPage(),
+                ),
+              );
+            },*/
             child: Text(
               "Produits",
               style: TextStyle(
-                color: _selectedIndex == 0 ? Colors.amber : Colors.white,
+                color: _selectedIndex == 5 ? Colors.amber : Colors.white,
                 fontSize: 16,
-                fontWeight: _selectedIndex == 0 ? FontWeight.bold : FontWeight.normal,
+                fontWeight: _selectedIndex == 5 ? FontWeight.bold : FontWeight.normal,
               ),
             ),
           ),
@@ -148,6 +157,7 @@ class _HomePageState extends State<HomePage> {
       const AboutPage(),
       const ContactPage(),
       const LoginPage(),
+      Center(child: ProductListPage()),
     ];
 
     return Scaffold(

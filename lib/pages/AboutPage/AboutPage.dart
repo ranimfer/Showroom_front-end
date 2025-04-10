@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'solution_carousel.dart';
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
@@ -19,13 +19,11 @@ class AboutPage extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image bien redimensionnée et centrée
+              // Image section 1
               Expanded(
                 flex: 1,
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: 300, // limite la taille de l’image
-                  ),
+                  constraints: const BoxConstraints(maxWidth: 300),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.asset(
@@ -52,15 +50,73 @@ class AboutPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 40),
+          
+
+
+
+
+
+          // 🔽 Deuxième section
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Partie gauche : texte + icône
+              Expanded(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Row(
+                      children: [
+                        Icon(Icons.add_circle_outline, color: Colors.blue, size: 28),
+                        SizedBox(width: 8),
+                        Text(
+                          'Le plus de SOTUNEC ++ !',
+                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      "• Société Tuniso-Japonaise : production 100 % locale (une usine de production dédiée aux produits et solutions SOTUNEC ).\n\n"
+                          "• SOTUNEC, le 1er opérateur de réseaux, de produits et d’applications IoT.\n\n"
+                          "• SOTUNEC, l’optimisateur des ressources dans différents domaines :\n\n"
+                          "  – Réaliser des économies : consommation d’eau, d’énergie,…\n\n"
+                          "  – Optimiser les budgets : gestion de la flotte, éclairage public,…\n\n"
+                          "  – Optimiser les ressources : industrie, agriculture,…\n\n"
+                          "  – Augmenter la rentabilité : réduction du coût du carburant et de maintenance,…\n\n"
+                          "  – Protéger l’environnement et les espaces verts.\n\n"
+                          "  – Prendre en main des mesures suite aux situations extrêmes : fuite d’eau, panne d’électricité, machines énergivores,…",
+                      style: TextStyle(fontSize: 16, height: 1.6),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 24),
+              // Partie droite : image
+              Expanded(
+                flex: 1,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 300),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.asset(
+                      'assets/desc2.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 40),
           const Text(
-            'Nos valeurs :',
+            'Nos solutions :',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 12),
-          const BulletPoint(text: '💡 Innovation'),
-          const BulletPoint(text: '🔗 Connectivité'),
-          const BulletPoint(text: '⚙️ Intégration sur mesure'),
-          const BulletPoint(text: '🌍 Durabilité & efficacité'),
+          const SizedBox(height: 16),
+          const SolutionCarousel(),
+
         ],
       ),
     );

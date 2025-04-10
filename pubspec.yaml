@@ -66,6 +66,14 @@ flutter:
     - assets/logo.png
     - assets/logoo.png
     - assets/smart.png
+    - assets/desc2.png
+    - assets/solutions/smartcity.jpg
+    - assets/solutions/frozenstatus.jpg
+    - assets/solutions/smartenergy.jpg
+    - assets/solutions/smartgarden.jpg
+    - assets/solutions/smarthome.jpg
+    - assets/solutions/smarttarficlight.jpg
+    - assets/solutions/smartwater.jpg
 
 
 
