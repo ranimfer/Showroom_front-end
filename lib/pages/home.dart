@@ -7,6 +7,7 @@ import 'LoginPage.dart';
 import '../widgets/footer.dart';
 import '../widgets/category_avatar.dart';
 import '../widgets/product_card.dart';
+import '../widgets/custom_navbar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,124 +27,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget _buildNavbar() {
-    return Container(
-      color: Colors.blueGrey[900],
-      height: 80,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        children: [
-          // 1. Logo → Accueil
-          IconButton(
-            onPressed: () => _onItemTapped(0),
-            icon: Image.asset(
-              'assets/logoo.png',
-              height: 70,
-            ),
-            tooltip: 'Accueil',
-          ),
 
-          const SizedBox(width: 20),
-
-          // 2. Search bar
-          /*Expanded(
-            child: Container(
-              height: 40,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: TextField(
-                controller: _searchController,
-                onChanged: (value) {
-                  setState(() {
-                    _searchText = value;
-                  });
-                },
-                decoration: const InputDecoration(
-                  hintText: "Rechercher un produit...",
-                  border: InputBorder.none,
-                  icon: Icon(Icons.search),
-                ),
-              ),
-            ),
-          ),*/
-
-          const SizedBox(width: 830),
-
-          // 3. Accueil
-          TextButton(
-            onPressed: () => _onItemTapped(0),
-            child: Text(
-              "Accueil",
-              style: TextStyle(
-                color: _selectedIndex == 0 ? Colors.amber : Colors.white,
-                fontSize: 16,
-                fontWeight: _selectedIndex == 0 ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
-          ),
-
-          const SizedBox(width: 12),
-
-          // 4. SOTUNEC ++ → AboutPage
-          TextButton(
-            onPressed: () => _onItemTapped(2), // AboutPage
-            child: Text(
-              "SOTUNEC ++",
-              style: TextStyle(
-                color: _selectedIndex == 2 ? Colors.amber : Colors.white,
-                fontSize: 16,
-                fontWeight: _selectedIndex == 2 ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
-          ),
-
-          const SizedBox(width: 12),
-
-          // 5. Produits (à personnaliser plus tard)
-          TextButton(
-            onPressed: () => _onItemTapped(5), // Pour l’instant, même page Accueil
-            /*onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProductListPage(),
-                ),
-              );
-            },*/
-            child: Text(
-              "Produits",
-              style: TextStyle(
-                color: _selectedIndex == 5 ? Colors.amber : Colors.white,
-                fontSize: 16,
-                fontWeight: _selectedIndex == 5 ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
-          ),
-
-          const SizedBox(width: 12),
-
-          // 6. Panier (icône)
-          IconButton(
-            onPressed: () => _onItemTapped(1), // CartPage
-            icon: Icon(Icons.shopping_cart,
-                color: _selectedIndex == 1 ? Colors.amber : Colors.white),
-            tooltip: 'Panier',
-          ),
-
-          // 7. Connecter (icône)
-          IconButton(
-            onPressed: () => _onItemTapped(4), // LoginPage
-            icon: Icon(Icons.person,
-                color: _selectedIndex == 4 ? Colors.amber : Colors.white),
-            tooltip: 'Se connecter',
-          ),
-        ],
-      ),
-    );
-  }
 
 
   @override
@@ -163,7 +47,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Column(
         children: [
-          _buildNavbar(),
+          //_buildNavbar(),
+          CustomNavbar(
+            selectedIndex: _selectedIndex,
+            onItemTapped: _onItemTapped,
+          ),
+
           Expanded(
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),

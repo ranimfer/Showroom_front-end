@@ -20,7 +20,7 @@ class _ProductListPageState extends State<ProductListPage> {
   @override
   void initState() {
     super.initState();
-    displayedProducts = products; // tout afficher au début
+    displayedProducts = products;
   }
 
   void searchProducts(String query) {
@@ -35,6 +35,18 @@ class _ProductListPageState extends State<ProductListPage> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    double screenWidth = SizeConfig.getScreenWidth();
+
+    // Ajuster dynamiquement le nombre de colonnes pour écran large
+    int crossAxisCount;
+    if (screenWidth >= 1200) {
+      crossAxisCount = 4;
+    } else if (screenWidth >= 900) {
+      crossAxisCount = 3;
+    } else {
+      crossAxisCount = 2;
+    }
+
     return Scaffold(
       backgroundColor: AppColors.purple2,
       body: SafeArea(
@@ -75,18 +87,18 @@ class _ProductListPageState extends State<ProductListPage> {
                 children: List.generate(
                   Constants.categories.length,
                       (index) {
-                    // Récupère la catégorie sous forme de chaîne à partir du map
                     String categoryLabel = Constants.categories[index]['label'] as String;
-
                     return ChoiceChip(
                       label: Text(categoryLabel),
                       selected: selectedCategoryIndex == index,
                       onSelected: (bool selected) {
                         setState(() {
                           selectedCategoryIndex = index;
-                          // Filtre les produits par catégorie
-                          displayedProducts = products.where((product) =>
-                          product.category == categoryLabel).toList();
+                          displayedProducts = products
+                              .where((product) =>
+                          product.categories != null &&
+                              product.categories!.contains(categoryLabel))
+                              .toList();
                         });
                       },
                       selectedColor: AppColors.primary,
@@ -109,7 +121,7 @@ class _ProductListPageState extends State<ProductListPage> {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: displayedProducts.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+                  crossAxisCount: crossAxisCount,
                   childAspectRatio: 3 / 4,
                   mainAxisSpacing: 16,
                   crossAxisSpacing: 16,
@@ -125,50 +137,81 @@ class _ProductListPageState extends State<ProductListPage> {
                         ),
                       );
                     },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5,
-                          )
-                        ],
-                      ),
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.asset(product.image, fit: BoxFit.cover, width: double.infinity),
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 5,
+                              )
+                            ],
+                          ),
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.asset(
+                                    product.image,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                product.name,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                "${product.price.toStringAsFixed(2)} TND",
+                                style: TextStyle(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              SizedBox(height: 25), // espace pour le bouton
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 10,
+                          right: 10,
+                          child: InkWell(
+                            onTap: () {
+                              // 👉 Logique à définir plus tard : ajout au panier
+                              print("Produit ajouté au panier : ${product.name}");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.primary,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              padding: EdgeInsets.all(8),
+                              child: Icon(
+                                Icons.add_shopping_cart,
+                                color: Colors.white,
+                                size: 20,
+                              ),
                             ),
                           ),
-                          SizedBox(height: 10),
-                          Text(
-                            product.name,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            //product.price as String,
-                            "${product.price.toStringAsFixed(2)} TND",
-                            style: TextStyle(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   );
                 },
+
               ),
             ),
             SizedBox(height: 20),

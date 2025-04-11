@@ -6,7 +6,9 @@ class Product {
   final String description;
   final String image;
   final double price;
-  final String category;
+  final String? caracteristiques;
+  final String? communication;
+  final List<String>? categories; // liste de catégories secondaires
 
   Product({
     required this.id,
@@ -14,7 +16,9 @@ class Product {
     required this.description,
     required this.image,
     required this.price,
-    required this.category,
+    this.caracteristiques,
+    this.communication,
+    this.categories,
   });
 
   // Fabrique une liste de produits à partir des données constantes
@@ -23,12 +27,16 @@ class Product {
       // On s'assure que chaque valeur est bien de type String
       return Product(
         id: item['id']?.toString() ?? '',  // Ajout de vérification pour id
-        name: item['label']?.toString() ?? 'Produit inconnu',  // S'assurer que 'label' est une String
-        description: item['category']?.toString() ?? 'Catégorie inconnue',  // S'assurer que 'category' est une String
+        name: item['name']?.toString() ?? 'Produit inconnu',  // S'assurer que 'label' est une String
+        description: item['description']?.toString() ?? 'description inconnue',  // S'assurer que 'category' est une String
         image: item['image']?.toString() ?? 'assets/logo.png',  // S'assurer que 'image' est une String
         //price: item['price']?.toDouble() ?? 'Prix inconnu',  // S'assurer que 'price' est une String
         price: double.tryParse(item['price'] ?? '') ?? 0.0,
-        category: item['category']?.toString() ?? 'Catégorie inconnue',  // S'assurer que 'category' est une String
+        caracteristiques: item['caracteristiques']?.toString(),
+        communication: item['communication']?.toString(),
+        categories: (item['categories'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList(),
       );
     }).toList();
   }

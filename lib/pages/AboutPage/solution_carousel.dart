@@ -9,13 +9,13 @@ class SolutionCarousel extends StatefulWidget {
 
 class _SolutionCarouselState extends State<SolutionCarousel> {
   final List<Map<String, String>> solutions = [
-    {'title': 'SMART CITIES', 'image': 'assets/solutions/smartcity.png'},
-    {'title': 'SMART AGRICULTURE', 'image': 'assets/solutions/smartagriculture.png'},
-    {'title': 'SUIVI DE LA CHAINE DE FROID', 'image': 'assets/solutions/frozenstatus.png'},
-    {'title': 'SMART ENERGY MANAGEMENT', 'image': 'assets/solutions/smartenergy.png'},
-    {'title': 'SMART WATER', 'image': 'assets/solutions/smartwater.png'},
-    {'title': 'SMART HOME', 'image': 'assets/solutions/smarthome.png'},
-    {'title': 'SMART GARDEN', 'image': 'assets/solutions/smartgarden.png'},
+    {'title': 'SMART CITIES', 'image': 'assets/solutions/smartcity.jpg'},
+    {'title': 'SMART AGRICULTURE', 'image': 'assets/solutions/smartagriculture.jpg'},
+    {'title': 'SUIVI DE LA CHAINE DE FROID', 'image': 'assets/solutions/frozenstatus.jpg'},
+    {'title': 'SMART ENERGY MANAGEMENT', 'image': 'assets/solutions/smartenergy.jpg'},
+    {'title': 'SMART WATER', 'image': 'assets/solutions/smartwater.jpg'},
+    {'title': 'SMART HOME', 'image': 'assets/solutions/smarthome.jpg'},
+    {'title': 'SMART GARDEN', 'image': 'assets/solutions/smartgarden.jpg'},
   ];
 
   int currentIndex = 0;

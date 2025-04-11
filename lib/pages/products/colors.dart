@@ -8,7 +8,7 @@ class AppColors {
   static const iconGray = Color(0xFFD5D5D5); // gris pour les icônes
 
   // Couleurs principales (orange et variantes)
-  static const primary = Color(0xFFEC6813); // orange principal
+  static const primary = Colors.amber; // orange principal
   static const primaryLight = Color(0xFFFDECE0); // arrière-plan ou hover clair
   static const secondary = Color(0xFFF7F7F7); // background neutre clair
 
