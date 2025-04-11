@@ -5,7 +5,7 @@ class Product {
   final String name;
   final String description;
   final String image;
-  final String price;
+  final double price;
   final String category;
 
   Product({
@@ -26,7 +26,8 @@ class Product {
         name: item['label']?.toString() ?? 'Produit inconnu',  // S'assurer que 'label' est une String
         description: item['category']?.toString() ?? 'Catégorie inconnue',  // S'assurer que 'category' est une String
         image: item['image']?.toString() ?? 'assets/logo.png',  // S'assurer que 'image' est une String
-        price: item['price']?.toString() ?? 'Prix inconnu',  // S'assurer que 'price' est une String
+        //price: item['price']?.toDouble() ?? 'Prix inconnu',  // S'assurer que 'price' est une String
+        price: double.tryParse(item['price'] ?? '') ?? 0.0,
         category: item['category']?.toString() ?? 'Catégorie inconnue',  // S'assurer que 'category' est une String
       );
     }).toList();

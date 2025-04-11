@@ -42,14 +42,14 @@ class Constants {
       "id": "1",  // Ajout de l'ID
       "category": "Smart Agriculture",
       "label": "Capteur d'humidité du sol",
-      "price": "250 DT",
+      "price": "250.0",
       "image": "assets/logo.png",
     },
     {
       "id": "2",  // Ajout de l'ID
       "category": "Smart Agriculture",
       "label": "Station météo connectée",
-      "price": "400 DT",
+      "price": "400.0",
       "image": "assets/logo.png",
     },
   ];
@@ -59,14 +59,14 @@ class Constants {
       "id": "3",  // Ajout de l'ID
       "category": "Smart Lighting",
       "label": "Lampe LED intelligente",
-      "price": "180 DT",
+      "price": "180.0",
       "image": "assets/logo.png",
     },
     {
       "id": "4",  // Ajout de l'ID
       "category": "Smart Lighting",
       "label": "Système d’éclairage solaire connecté",
-      "price": "320 DT",
+      "price": "320.0",
       "image": "assets/logo.png",
     },
   ];
@@ -76,14 +76,14 @@ class Constants {
       "id": "5",  // Ajout de l'ID
       "category": "Smart Water Management",
       "label": "Débitmètre connecté",
-      "price": "280 DT",
+      "price": "280.0",
       "image": "assets/logo.png",
     },
     {
       "id": "6",  // Ajout de l'ID
       "category": "Smart Water Management",
       "label": "Capteur de niveau d'eau",
-      "price": "300 DT",
+      "price": "300.0",
       "image": "assets/logo.png",
     },
   ];
@@ -93,14 +93,14 @@ class Constants {
       "id": "7",  // Ajout de l'ID
       "category": "Smart Housing",
       "label": "Caméra de surveillance Wi-Fi",
-      "price": "350 DT",
+      "price": "350.0",
       "image": "assets/logo.png",
     },
     {
       "id": "8",  // Ajout de l'ID
       "category": "Smart Housing",
       "label": "Serrure intelligente",
-      "price": "450 DT",
+      "price": "450.0",
       "image": "assets/logo.png",
     },
   ];
@@ -110,14 +110,14 @@ class Constants {
       "id": "9",  // Ajout de l'ID
       "category": "Chaîne de froid",
       "label": "Capteur de température IoT",
-      "price": "220 DT",
+      "price": "220.0",
       "image": "assets/logo.png",
     },
     {
       "id": "10",  // Ajout de l'ID
       "category": "Chaîne de froid",
       "label": "Boîte isotherme connectée",
-      "price": "500 DT",
+      "price": "500.0",
       "image": "assets/logo.png",
     },
   ];

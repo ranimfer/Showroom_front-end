@@ -156,7 +156,8 @@ class _ProductListPageState extends State<ProductListPage> {
                           ),
                           SizedBox(height: 5),
                           Text(
-                            product.price,
+                            //product.price as String,
+                            "${product.price.toStringAsFixed(2)} TND",
                             style: TextStyle(
                               color: AppColors.primary,
                               fontWeight: FontWeight.bold,

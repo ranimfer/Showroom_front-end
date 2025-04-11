@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:showroomofficiel/pages/products/product_list.dart';
 import 'AboutPage/AboutPage.dart';
-import 'CartPage.dart';
+import 'cart/CartPage.dart';
 import 'ContactPage.dart';
 import 'LoginPage.dart';
 import '../widgets/footer.dart';
@@ -254,6 +254,7 @@ class AccueilContent extends StatelessWidget {
                 onPressed: () => onPageSelected(2), // ✅ AboutPage
                 child: const Text("À propos"),
               ),
+
               const SizedBox(height: 12),
               ElevatedButton(
                 onPressed: () => onPageSelected(3), // ✅ ContactPage
