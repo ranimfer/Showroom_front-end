@@ -112,6 +112,21 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ],
             ),
+            const SizedBox(height: 20),
+            //  Bouton Admin
+            Center(
+              child: TextButton.icon(
+                icon: const Icon(Icons.admin_panel_settings),
+                label: const Text("Connexion Admin"),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const AdminLoginPage()),
+                  );
+                },
+              ),
+            ),
+            
           ],
         ),
       ),
